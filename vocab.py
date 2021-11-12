@@ -52,13 +52,15 @@ def get_text_messages(message):
             batch = batch[:6]
         try:
             audio = get_audio(batch)
+            bot.send_message(message.from_user.id, 'Audio was generated successfully')
         except Exception as e:
-            print('model failed')
+            bot.send_message(message.from_user.id, 'Model failed to generate audio')
             pass
         try:
             save_audio(audio, batch, folder)
+            bot.send_message(message.from_user.id, 'Files were saved to the corresponding custom folder')
         except Exception as e:
-            print('saving failed')
+            bot.send_message(message.from_user.id, 'Saving failed')
             pass
 
     # answers    
