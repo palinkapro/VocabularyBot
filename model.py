@@ -1,3 +1,4 @@
+import numpy
 import torch
 from utils import apply_tts
 import wave
@@ -25,15 +26,6 @@ def get_audio(batch):
                         symbols=symbols,
                         device=device)
     return audio
-  
-  
-def write_wave(path, audio, sample_rate):
-    with contextlib.closing(wave.open(path, 'wb')) as wf:
-        wf.setnchannels(1)
-        wf.setsampwidth(2)
-        wf.setframerate(sample_rate)
-        wf.writeframes(audio)
-
 
 def save_audio(audio, batch, folder):
     for i, _audio in enumerate(audio):
@@ -41,7 +33,9 @@ def save_audio(audio, batch, folder):
             audio=(audio[i] * 32767).numpy().astype('int16'),
             sample_rate=16000)
 
-
-
-
-    
+def write_wave(path, audio, sample_rate):
+    with contextlib.closing(wave.open(path, 'wb')) as wf:
+        wf.setnchannels(1)
+        wf.setsampwidth(2)
+        wf.setframerate(sample_rate)
+        wf.writeframes(audio)
