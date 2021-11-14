@@ -1,3 +1,4 @@
 # VocabularyBot
 
-~ under construction ~
+~ under construction ~ 
+[@voczbbuilderbot](https://t.me/vocabbuilderbot). 
