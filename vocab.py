@@ -52,17 +52,15 @@ def get_text_messages(message):
             batch = batch[:6]
         try:
             audio = get_audio(batch)
-            bot.send_message(message.from_user.id, 'Audio was generated successfully')
+            bot.send_message(message.from_user.id, 'Аудио успешно сгенерировано.')
         except Exception as e:
-            bot.send_message(message.from_user.id, 'Model failed to generate audio')
-            pass
+            bot.send_message(message.from_user.id, 'model failed')
+           
         try:
             save_audio(audio, batch, folder)
-            bot.send_message(message.from_user.id, 'Files were saved to the corresponding custom folder')
+            bot.send_message(message.from_user.id, 'Файл для словаря сохранён.')
         except Exception as e:
-            bot.send_message(message.from_user.id, 'Saving failed')
-            pass
-
+            bot.send_message(message.from_user.id, 'saving failed')
     # answers    
     else:
         markup = telebot.types.InlineKeyboardMarkup()
@@ -88,8 +86,8 @@ def get_text_messages(message):
             markup = telebot.types.InlineKeyboardMarkup()
             markup.add(telebot.types.InlineKeyboardButton(text='Слово', callback_data='get_word'))
             bot.send_message(message.from_user.id, 'Для прослушивания первого слова, нажмите Слово')
-        
-            
+
+
 @bot.callback_query_handler(func=lambda call: True)
 def query_handler(call):
 
@@ -157,6 +155,7 @@ def query_handler(call):
 
     bot.edit_message_reply_markup(call.message.chat.id, call.message.message_id)
 
+
 @bot.message_handler(commands=['mistakes'])
 def mistakes(message):
     bot.send_message(message.from_user.id, misspelled_words)
@@ -168,4 +167,3 @@ def end(message):
             
 
 bot.polling(none_stop=True, interval=0)
-
